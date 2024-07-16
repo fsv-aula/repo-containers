@@ -4,14 +4,15 @@ on:
 jobs:
     build-test:
         runs-on: ubuntu-latest
-        container: 
-          image: python:3.10.14-alpine3.20
         steps:
             - name: Checkout
               uses: actions/checkout@v4
-            - name: Verificar a versão do Python
-              run: python3 --version
-            - name: Instalação curl Alpine
-              run: apk add curl
-            - name: Executando o curl 
-              run: curl https://www.google.com
+            - name: Executando o Terraform
+              uses: docker://hashicorp/terraform:latest
+              with:
+                entrypoint: |
+                  terraform init
+                  terraform plan 
+                  terraform apply --auto-approve
+                  cat teste.txt
+      
