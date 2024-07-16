@@ -4,12 +4,14 @@ on:
 jobs:
     build-test:
         runs-on: ubuntu-latest
+        container: 
+          image: python:3.10.14-alpine3.20
         steps:
             - name: Checkout
               uses: actions/checkout@v4
-            - name: Executando verificação do OS (Agente de execução) e conteúdo do Readme.md 
-              run: cat /etc/os-release && cat README.md
-            - name: Executando verificação do OS (Container) e conteúdo do Readme.md 
-              uses: docker://alpine:latest
-              with:
-                entrypoint: cat /etc/os-release && cat README.md
+
+            - name: Teste container
+              uses: docker://fabricioveronez/teste:v1  
+              with: 
+                entrypoint: cat 
+                args: README.md
