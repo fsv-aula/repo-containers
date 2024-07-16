@@ -8,8 +8,12 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
+            - name: Teste local
+              run: cat /etc/os-release
+
+
             - name: Teste container
               uses: docker://alpine:latest 
               with: 
                 entrypoint: cat 
-                args: README.md
+                args: /etc/os-release
